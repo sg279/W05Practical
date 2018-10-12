@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class State{
     private String name;
-    private ArrayList<Input> inputs;
+    private ArrayList<Input> inputs = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -24,7 +24,7 @@ public class State{
     }
 
     public void addInput (Input input){
-        inputs.add(input);
+        this.inputs.add(input);
     }
 
     public State (String name){

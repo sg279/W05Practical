@@ -1,33 +1,32 @@
 import java.util.ArrayList;
 
 public class fsm{
-    private ArrayList<State> states;
+    public ArrayList<State> states = new ArrayList<>();
     private State currentState;
     private State initialState;
 
     public String processInput(String input){
         String output=currentState.getInput(input).getOutput();
-        State transitionState = getState(currentState.getInput(input).getTransition());
+        State transitionState = states.get((getStateIndex(currentState.getInput(input).getTransition())));
         this.currentState = transitionState;
         return output;
     }
 
-    private State getState(String name){
-        State returnState = null;
-        for (State state: states
-             ) {
-            if(state.getName().equals(name)){
-                returnState = state;
+    public int getStateIndex(String name){
+        int returnStateIndex=-1;
+        for (int i=0; i<states.size(); i++) {
+            if(states.get(i).getName().equals(name)){
+                returnStateIndex = i;
             }
         }
-        return returnState;
+        return returnStateIndex;
     }
 
     public void addState(State state){
         this.states.add(state);
     }
 
-    public fsm(State initial){
-        this.initialState=initial;
+    public void setInitialState(State initialState) {
+        this.initialState = initialState;
     }
 }
