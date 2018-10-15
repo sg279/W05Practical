@@ -73,7 +73,7 @@ public class FSM {
      */
     public boolean testTransitions(){
         //Define an array list of strings called startingStates
-        ArrayList<String> startingStates = new ArrayList<>();
+        Set<String> startingStates = new HashSet<>();
         //For each state in the states array property, add the state's name to the startingStates array list
         for (State state: states
              ) {
