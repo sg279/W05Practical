@@ -5,6 +5,7 @@ import java.util.Set;
 //This class extends FSM and adds a method to add any inputs that are missing
 public class FSMExtension extends FSM {
 
+    //Defines a second machine that the output may be parsed to
     public FSMExtension secondMachine;
 
     /**
@@ -68,10 +69,11 @@ public class FSMExtension extends FSM {
             State transitionState = states.get(stateIndex);
             //Set the machine's current state to the transitionState object
             this.currentState = transitionState;
-            //Return the output object
+            //If a second machine exists parse the output to it
             if(secondMachine!=null){
                 output = secondMachine.processInput(inputValue);
             }
+            //Return the output
             return output;
         }
         //Otherwise, return null
