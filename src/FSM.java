@@ -8,7 +8,7 @@ public class FSM {
     //Define an array list of State objects called states
     public ArrayList<State> states = new ArrayList<>();
     //Define a state property called currentState
-    private State currentState;
+    public State currentState;
 
     /**
      * This method takes an input, changes the state of the machine, and returns an output (which is null if the input

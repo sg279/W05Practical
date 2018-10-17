@@ -5,6 +5,8 @@ import java.util.Set;
 //This class extends FSM and adds a method to add any inputs that are missing
 public class FSMExtension extends FSM {
 
+    public FSMExtension secondMachine;
+
     /**
      * This method runs checks that all states have the same inputs and adds any missing inputs to the states that output nothing and transition
      * the state to the same state
@@ -45,5 +47,36 @@ public class FSMExtension extends FSM {
      */
     public FSMExtension(FSM fsm){
         this.states=fsm.states;
+        this.secondMachine = null;
+    }
+
+    public void setSecondMachine(FSMExtension secondMachine) {
+        this.secondMachine = secondMachine;
+    }
+
+    public String processInput(String inputValue){
+        //Create an input object from the state's input that matches that value
+        Input input = currentState.getInput(inputValue);
+        //If the input object isn't null do the following
+        if (input!=null){
+            //Define a string called output as the input object's output property
+            String output=input.getOutput();
+            //Define an integer called stateIndex as the getStateIndex method called on the name of the transition state
+            //property of the input object
+            int stateIndex = getStateIndex(input.getTransition());
+            //Create a state object called transitionState as the state at the transition state's index in the state's array
+            State transitionState = states.get(stateIndex);
+            //Set the machine's current state to the transitionState object
+            this.currentState = transitionState;
+            //Return the output object
+            if(secondMachine!=null){
+                output = secondMachine.processInput(inputValue);
+            }
+            return output;
+        }
+        //Otherwise, return null
+        else{
+            return null;
+        }
     }
 }

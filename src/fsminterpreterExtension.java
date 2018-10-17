@@ -13,12 +13,19 @@ public class fsminterpreterExtension extends fsminterpreter{
     public static void main(String[] args){
         //Create a new FSMExtension object by parsing the constructor a finite state machine
         //created with the setup method that's extended
-        FSMExtension fsm = new FSMExtension(setup(args[0]));
+        FSMExtension fsm = new FSMExtension(setup(args[1]));
         //Call the normaliseInputs method on the fsmObject
         fsm.normaliseInputs();
         //Set the fsm's state to the first state
         fsm.setInitialState(fsm.states.get(0));
 
+        FSMExtension fsm2 = new FSMExtension(setup(args[0]));
+        //Call the normaliseInputs method on the fsmObject
+        fsm2.normaliseInputs();
+        //Set the fsm's state to the first state
+        fsm2.setInitialState(fsm.states.get(0));
+
+        fsm.setSecondMachine(fsm2);
         //The rest of this method is copied from the fsmInterpreter main method
         if(!(fsm.testTransitions()&&fsm.testInputs())){
             System.out.print("Bad description");
