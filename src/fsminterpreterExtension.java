@@ -34,12 +34,12 @@ public class fsminterpreterExtension extends fsminterpreter{
             machineChain.add(fsm);
         }
 
-        //Working backwards through the machine chain, add each machine as a second machine to the machine before
-        for (int i = machineChain.size()-1; i>0; i--){
-            machineChain.get(i-1).setSecondMachine(machineChain.get(i));
+        //For each machine in the list, add it as a second machine to the next one
+        for (int i = 0; i<machineChain.size()-1; i++){
+            machineChain.get(i+1).setSecondMachine(machineChain.get(i));
         }
         //Create a FSMExtension object from the first item in the chain
-        FSMExtension fsm = machineChain.get(0);
+        FSMExtension fsm = machineChain.get(machineChain.size()-1);
 
         //The rest of this code was taken from the fsminterpereter class
         try {

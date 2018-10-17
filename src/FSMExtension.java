@@ -56,29 +56,34 @@ public class FSMExtension extends FSM {
     }
 
     public String processInput(String inputValue){
-        //Create an input object from the state's input that matches that value
-        Input input = currentState.getInput(inputValue);
-        //If the input object isn't null do the following
-        if (input!=null){
-            //Define a string called output as the input object's output property
-            String output=input.getOutput();
-            //Define an integer called stateIndex as the getStateIndex method called on the name of the transition state
-            //property of the input object
-            int stateIndex = getStateIndex(input.getTransition());
-            //Create a state object called transitionState as the state at the transition state's index in the state's array
-            State transitionState = states.get(stateIndex);
-            //Set the machine's current state to the transitionState object
-            this.currentState = transitionState;
-            //If a second machine exists parse the output to it
-            if(secondMachine!=null){
-                output = secondMachine.processInput(inputValue);
-            }
-            //Return the output
-            return output;
+        if(inputValue==""){
+            return "";
         }
-        //Otherwise, return null
-        else{
-            return null;
+        else {
+            //Create an input object from the state's input that matches that value
+            Input input = currentState.getInput(inputValue);
+            //If the input object isn't null do the following
+            if (input != null) {
+                //Define a string called output as the input object's output property
+                String output = input.getOutput();
+                //Define an integer called stateIndex as the getStateIndex method called on the name of the transition state
+                //property of the input object
+                int stateIndex = getStateIndex(input.getTransition());
+                //Create a state object called transitionState as the state at the transition state's index in the state's array
+                State transitionState = states.get(stateIndex);
+                //Set the machine's current state to the transitionState object
+                this.currentState = transitionState;
+                //If a second machine exists parse the output to it
+                if (secondMachine != null) {
+                    output = secondMachine.processInput(output);
+                }
+                //Return the output
+                return output;
+            }
+            //Otherwise, return null
+            else {
+                return null;
+            }
         }
     }
 }
